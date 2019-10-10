@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+$(function () {
 
  let position1 = {
      lat: 51.5,
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 document.getElementById("geocodeAdress").addEventListener("click", geocodeAdress);
-
+document.getElementById("geocodeAdressFull").addEventListener("click", geocodeAdressFull);
 
 let geocoder = new google.maps.Geocoder();
 
@@ -36,11 +36,20 @@ function geocodeAdress() {
 
 
     });
+}
+function geocodeAdressFull() {
+let url = "https://maps.googleapis.com/maps/api/geocode/json?address="+document.getElementById("address").value+"&key="+key;
 
+$.getJSON(url, function(data){
 
-
+    if(data.status == "OK"){
+        console.log(data);
+    } else{
+        $("#output").text("Bad request");
+    }
+});
 }
 
-}, false);
+});
    
  
