@@ -28,9 +28,18 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById("showMarkers").addEventListener("click", showMarkers);
 
 function showMarkers() {
+    
         for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
+            markers[i].setMap(null);
+            addMarkerWithDelay(i);
         }
+}
+
+function addMarkerWithDelay(i){
+    setTimeout(function(){
+        markers[i].setMap(map);
+        markers[i].setAnimation(google.maps.Animation.DROP);
+    },200 * i);
 }
 
 document.getElementById("hideMarkers").addEventListener("click", hideMarkers);
