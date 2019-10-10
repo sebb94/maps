@@ -23,14 +23,10 @@ setTimeout(function () {
         animation: google.maps.Animation.DROP
     };
 
-  
-
     let marker1 = new google.maps.Marker(marker1Options);
     let marker2 = new google.maps.Marker(marker2Options);
     marker2.setMap(map)
     marker2.setAnimation(google.maps.Animation.BOUNCE);
-
-
     marker1.addListener("click", function () {
         infoWindow.open(map, marker1);
     });
@@ -41,8 +37,6 @@ setTimeout(function () {
         content: contentSting,
         maxWidth: 100,
     });
-
-
     google.maps.event.addListener(marker1, 'dragend', function (event) {
         var lat = marker1.getPosition().lat();
         var lng = marker1.getPosition().lng();
