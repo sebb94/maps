@@ -6,8 +6,8 @@
     <title>Maps</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="show_delete_hide_markers.js"></script>
-    <?php include('maps/maps.php');?>
+    <script src="main.js"></script>
+    <?php include('../maps/maps.php');?>
 
 </head>
 
@@ -15,10 +15,7 @@
     
     <div id="map"></div>
     <div class="show-buttons">
-    
-        <button id="showMarkers">Show Existsing Markers</button>
-        <button id="hideMarkers">Hide Existsing Markers</button>
-        <button id="deleteMarkers">Delete Existsing Markers</button>
+        <button id="calcRoute">Calculate route</button>
     </div>
 <script>
 
