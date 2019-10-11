@@ -37,6 +37,9 @@ function geocodeAdress() {
 
     });
 }
+var marker = new google.maps.Marker({
+    map: map
+});
 function geocodeAdressFull() {
 let url = "https://maps.googleapis.com/maps/api/geocode/json?address="+document.getElementById("address").value+"&key="+key;
 
@@ -44,6 +47,40 @@ $.getJSON(url, function(data){
 
     if(data.status == "OK"){
         console.log(data);
+        let formattedAddress = data.results[0].formatted_address;
+        let lat = data.results[0].geometry.location.lat;
+        let lng = data.results[0].geometry.location.lng;
+        let postcode;
+        console.log(formattedAddress);
+        console.log(lat);
+        console.log(lng);
+        $.each(data.results[0].address_components, function (index, element) {
+
+            if(element.types == 'postal_code'){
+                    postcode = element.long_name;
+                    return false;
+            }
+        
+        });
+
+            console.log(postcode);
+            $("#output").html(`<b>Formatted Address</b> ${formattedAddress} <br> <b>Coordinates:</b> lat: ${lat}, lng: ${lng} <br> Postalcode ${postcode} `);
+            map.setCenter({lat:lat, lng:lng});
+            map.setZoom(16);
+           
+            if (marker != undefined) {
+                marker.setMap(null);
+            }
+             marker = new google.maps.Marker({
+                 position: {
+                     lat: lat,
+                     lng: lng
+                 },
+                 map: map
+            });
+            
+            console.log(marker + "oi");
+            
     } else{
         $("#output").text("Bad request");
     }

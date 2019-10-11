@@ -14,7 +14,7 @@
     <?php include('../maps/maps.php');?>
     <?php include('../maps/key.php');?>
     <script>
-    //let key = "<?php// echo $GLOBALS['key']; ?>";
+  //  let key = "<?php //echo $GLOBALS['key']; ?>";
     </script>
     <script src="main.js"></script>
 </head>
@@ -28,7 +28,7 @@
         <button id="geocodeAdressFull">Geocode address full</button>   
     </div>
 
-    <div id="output"></div>
+    <div id="output">a</div>
 <script>
 
 </script>
