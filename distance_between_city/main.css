@@ -1,8 +1,46 @@
 html,
 body {
     height: 100%;
+    background-image: url("road.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #map {
-    height: 60%;
-} 
+    height: 30%;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.jumbotron {
+    background-color: transparent;
+    color: #fff;
+}
+h1{
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+.jumbotron.result {
+    padding-bottom: 0;
+}
+
+#output {}
+
+form input {
+    background: transparent;
+    border: none;
+    width: 100%;
+    color: #fff;
+    height: 100%;
+    padding: 20px;
+}
+input::placeholder {
+    color: #fff !important; 
+    font-size: 1.6em !important;
+    font-style: italic !important;
+}
+.col-form-label {
+    font-size: 30px;
+    font-weight: 900;
+}

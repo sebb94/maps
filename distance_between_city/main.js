@@ -1,4 +1,6 @@
 $(function () {
+    let from ="";
+    let to = "";
 
  let position1 = {
      lat: 49.6183,
@@ -18,8 +20,10 @@ $(function () {
  let autocompleteOrigin = new google.maps.places.Autocomplete(inputOrigin, optionsOrigin);
 autocompleteOrigin.addListener('place_changed', onOriginChanged);
  function onOriginChanged(){
-  from = autocompleteOrigin.getPlace();
-  from = from.formatted_address;
+    from = autocompleteOrigin.getPlace();
+
+          from = from.formatted_address;
+
  }
   let inputTo = document.getElementById("to");
   let optionsTo = {
@@ -32,8 +36,7 @@ autocompleteOrigin.addListener('place_changed', onOriginChanged);
      to = to.formatted_address;
 
   }
-//console.log(from);
-//console.log(to);
+
 
 document.getElementById("calcRoute").addEventListener("click", calcRoute);
 
@@ -44,30 +47,53 @@ let directionsDisplay = new google.maps.DirectionsRenderer();
 directionsDisplay.setMap(map);
 
 function calcRoute() {
+    $('.alert-danger').hide();
+    $('.alert-success').hide();
+    let valFrom = $("#origin").val();
+    let valTo = $("#to").val();
 
-    let request = {
-        origin: from,
-        destination: to,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.METRIC
-    }
-
-    directionsService.route(request, function (result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            console.log(result);
-            console.log("Długosć trasy: " + result.routes[0].legs[0].distance.text);
-            console.log("Czas trasy: " + result.routes[0].legs[0].duration.text);
-            $("#output").html(`  Route Length: ${result.routes[0].legs[0].distance.text} <br>
-                 Route time: ${result.routes[0].legs[0].duration.text}   
-            `);
-            directionsDisplay.setDirections(result);
-        }else{
-            alert('xxx');
+    console.log(valFrom + valTo + 'oi');
+    console.log(from + to + 'xxx');
+    if(valTo && valFrom){
+        if( from == "" && to == ""){
+              $('.alert-danger').show();
+              $('.alert-success').hide();
+              $("#output .alert-danger .alert-message").html(` Bad data in inputs  `);
+              return;
         }
-    });
+        let request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.METRIC
+            }
+        directionsService.route(request, function (result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                console.log(result);
+                console.log("Długosć trasy: " + result.routes[0].legs[0].distance.text);
+                console.log("Czas trasy: " + result.routes[0].legs[0].duration.text);
+                $('.alert-success').show();
+                $('.alert-danger').hide();
+                $("#output .alert-success .alert-message").html(` From : ${from} <br> To: ${to} <br>  Route Length: ${result.routes[0].legs[0].distance.text} <br>
+                            Route time: ${result.routes[0].legs[0].duration.text}   
+                        `);
+                directionsDisplay.setDirections(result);
+            } else {
+                $('.alert-danger').show();
+                $('.alert-success').hide();
+                $("#output .alert-danger .alert-message").html(`  Can't find route  `);
+            }
+        });
 
-
+    }else{
+              $('.alert-danger').show();
+              $('.alert-success').hide();
+              $("#output .alert-danger .alert-message").html(`  Please fill inputs `);
+    }
 }
+
+$('.alert-danger').hide();
+$('.alert-success').hide();
 });
    
  
